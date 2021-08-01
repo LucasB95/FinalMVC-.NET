@@ -1,0 +1,76 @@
+﻿@model Final.Models.Usuario
+
+@{ 
+    var title = "Acceso al Sistema";
+    ViewData["Title"] = title;
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+
+    <title>@title</title>
+
+    <link href="/lib/bootstrap-4.3.1/dist/css/bootstrap.css" rel="stylesheet" />
+
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/login.css" />   
+
+
+</head>
+<body>
+   
+
+    <div class="login-box" >
+
+        <img class="logo" src="img/lg.jpg" alt="logo">
+
+        <h1>Login Here</h1>
+
+
+        @using (Html.BeginForm("Login", "Login", FormMethod.Post, new { @class = "form-signin", role = "form" }))
+        {
+            @Html.AntiForgeryToken();
+
+            //<h4>@title</h4>
+
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <label for="username">Username</label>
+
+            @Html.TextBoxFor(m => m.DNI, new { @class = "form-control", placeholder = "Usuario" })
+
+            @Html.ValidationMessageFor(m => m.DNI, "", new { @class = "text-danger" })
+
+            @*<br />*@
+
+            <label for="password">Password</label>
+
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Contraseña" })
+
+            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+
+            @*<br />*@
+
+            <input type="submit" value="Iniciar sesión" class="btn btn-lg btn-primary btn-block" />
+
+
+        }
+        <a>Lost your password</a>
+        <br />
+        <a>Don't have an account?</a>
+
+    </div>
+
+
+</body>
+
+
+</html>

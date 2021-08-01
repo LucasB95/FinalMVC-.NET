@@ -17,6 +17,11 @@ namespace Final.Data
             : base(options)
         {
         }
+
+        public FinalContextGlobal()
+        {
+
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(Properties.Resources.ConnectionString);

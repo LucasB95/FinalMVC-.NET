@@ -3,63 +3,104 @@
 @{
     ViewData["Title"] = "Index";
 }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=0.0" />
+<meta name="viewport" content="width=device-width" />
 
-<h1>Index</h1>
+<title>@ViewData["Title"]</title>
+@*Capturamos el titulo definido en el vista que corresponda (en este caso sera de la vista Index - LISTAR USUARIO)
+    @@2 Inicio: Importamos la librería js jQuery y el css bootstrap*@
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.DNI)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Nombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Mail)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Password)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.esAdmin)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.bloqueado)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DNI)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Mail)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Password)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.esAdmin)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.bloqueado)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.num_usr">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.num_usr">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.num_usr">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<link href="/lib/bootstrap-4.3.1/dist/css/bootstrap.css" rel="stylesheet" />
+
+<script src="/lib/jquery/dist/jquery.min.js"></script>
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/site.css" />
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Final</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Alojamientos" asp-action="Index">Alojamientos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Reservas" asp-action="Index">Reservas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuarios</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <h1>Usuarios</h1>
+
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.DNI)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nombre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Mail)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Password)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.esAdmin)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.bloqueado)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DNI)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Mail)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Password)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.esAdmin)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.bloqueado)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.num_usr">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.num_usr">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.num_usr">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>

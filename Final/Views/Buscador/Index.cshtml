@@ -1,0 +1,455 @@
+﻿@model Paginacion<Alojamiento>
+@using Microsoft.AspNetCore.Http
+@{
+    ViewBag.Title = "Alojamientos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var vUser = Context.Session.GetInt32("_User");<!--Capturar la sesión en la variable vUser-->
+}
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/Usuario.css">
+    <link rel="stylesheet" href="~/js/usuario.js">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Vista de Usuario</title>
+</head>
+
+<body>
+
+    <header>
+        <!-- Inicio del navegador -->
+        <nav class="navbar sticky-top navbar-light navbar-expand-lg" style="background-color: #00FCD4;">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Viajá con SoftNova</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarText">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="hoteles.html">Hoteles</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="cabañas.html">Cabañas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Buscador" asp-action="Index">Busqueda</a>
+                        </li>
+                    </ul>
+                    <!-- Inicio de menu desplegable -->
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                            </svg>
+                            @*Parametro por mvc*@
+                            <p>@vUser</p>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                            <li><a class="dropdown-item" href="#">Cambiar contraseña</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                @using (Html.BeginForm("LogOff", "Login", FormMethod.Post, new { id = "logoutForm", @class = "form-css" }))
+
+                                {
+
+                                    <a href="javascript:document.getElementById('logoutForm').submit()"><i class="dropdown-item"></i> Cerrar Sesión</a>
+
+                                }
+                                @*<a class="dropdown-item" href="#">Cerrar sesión</a>*@
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Fin de menu desplegable -->
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="https://www.hotel-de-labbaye.com/wp-content/uploads/2015/08/Hotel-Chambre-1920x800.jpg" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="https://www.hotel-de-labbaye.es/files/2015/07/Hotel-Exterieur-1920x800.jpg" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="https://www.viajausa.com/wp-content/uploads/2019/10/hilton.jpg" class="d-block w-100" alt="...">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+
+    <!-- Inicio caja de búsqueda -->
+
+    <div class="col-sm-6">
+        <div class="border">
+            <h1>Buscá tu alojamiento ideal</h1>
+            <form method="get" action=@Url.Action("Index", "Buscador" )>
+                <div class="input-group flex-nowrap form-group">
+                    <span class="input-group-text" id="addon-wrapping">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                            <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
+                        </svg>
+                    </span>
+                    @Html.TextBox("buscar", null, new
+                    {
+                        placeholder = "Ciudad o Barrio",
+                        @class = "form-control"
+                    })
+                    @*<input type="text" class="form-control" placeholder="Destino" aria-label="Destino" aria-describedby="addon-wrapping">*@
+                </div>
+                <!-- Inicio fechas  -->
+                <div class="dates">
+                    <table>
+                        <tr>
+                            <td>Fecha de salida</td>
+                            <td>Fecha de llegada</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text" id="addon-wrapping">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar3" viewBox="0 0 16 16">
+                                            <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z" />
+                                            <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+                                        </svg>
+                                    </span>
+                                    <input type="date" class="form-control" placeholder="Fecha de salida" aria-label="Salida" aria-describedby="addon-wrapping">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text" id="addon-wrapping">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar3" viewBox="0 0 16 16">
+                                            <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z" />
+                                            <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+                                        </svg>
+                                    </span>
+                                    <input type="date" class="form-control" placeholder="Fecha de llegada" aria-label="Llegada" aria-describedby="addon-wrapping">
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <!-- Fin fechas -->
+                <!-- Inicio estrellas -->
+
+                <div class="stars">
+                    <div class="text-stars">
+                        <p>Cantidad de estrellas</p>
+                    </div>
+                    <div class="select-stars">
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                            <option value="1">★</option>
+                            <option value="2">★★</option>
+                            <option value="3">★★★</option>
+                            <option value="4">★★★★</option>
+                            <option value="5">★★★★★</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Fin estrellas -->
+                <!-- Inicio personas -->
+                <div class="stars">
+                    <div class="text-stars">
+                        <p>Cantidad de personas</p>
+                    </div>
+                    <div class="select-stars">
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">+5</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- Fin personas -->
+                <!-- Inicio precio -->
+                <div class="stars">
+                    <div class="text-stars">
+                        <p>Precio</p>
+                    </div>
+                    <div class="select-stars">
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                            <option value="1">Por noche</option>
+                            <option value="2">Por persona</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="price">
+                    <p>Hasta $</p>
+                    <div class="range">
+                        <small>$0</small>
+                        <input type="range" class="form-range" min="100" max="50000" step="1" id="customRange3">
+                        <small>$100.000</small>
+                    </div>
+                </div>
+
+                <!-- Fin precio -->
+                <!-- Inicio botón de búsqueda -->
+                <button class="btn btn-primary" type="submit">Buscar</button>
+                <!-- Fin botón de búsqueda -->
+            </form>
+        </div>
+    </div>
+
+
+    @*CÓDIGO PARA EL FILTRO DE BÚSQUEDA*@
+    @*<div class="text-right form-inline">
+            <form method="get" action=@Url.Action("Index", "Buscador" )>
+                <div class="form-group">
+                    @Html.TextBox("buscar", null, new
+                    {
+                        placeholder = "texto de búsqueda",
+                        @class = "form-control"
+                    })
+                </div>
+                <button class="btn btn-primary" type="submit">Buscar</button>
+            </form>
+        </div>*@
+
+<div class="container transparent">
+    <h1>Resultados de tu búsqueda</h1>
+    <hr>
+    <!-- Meter un for aca para traer todos los resultados -->
+    @foreach (var item in Model.Resultado)
+    {
+        <div cards>
+            <div class="card" style="width: 18rem;">
+                <img src="https://media-cdn.tripadvisor.com/media/photo-s/11/f3/53/f7/we-hotel-aeropuerto.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.nombre)</h5>
+                    <p class="card-text">Ciudad : @Html.DisplayFor(modelItem => item.ciudad)</p>
+                    <p class="card-text">Barrio : @Html.DisplayFor(modelItem => item.barrio)</p>
+                    <p class="card-text">Estrellas :  @Html.DisplayFor(modelItem => item.estrellas)</p>
+                    <p class="card-text">Cantidad Personas : @Html.DisplayFor(modelItem => item.cantPersonas)</p>
+                    <p class="card-text">TV : @Html.DisplayFor(modelItem => item.tv)</p>
+                    <p class="card-text">Precio Dia : @Html.DisplayFor(modelItem => item.precioDia)</p>
+                    <p class="card-text">Habitaciones :@Html.DisplayFor(modelItem => item.habitaciones)</p>
+                    <p class="card-text">Baños :@Html.DisplayFor(modelItem => item.baños)</p>
+                    <p class="card-text">Precio por Persona :@Html.DisplayFor(modelItem => item.precioPorPersona)</p>
+                    <p class="card-text">Tipo :@Html.DisplayFor(modelItem => item.tipo)</p>
+                    <a onclick="reserva()" href="" class="btn btn-primary">¡Reserva ahora!</a>
+                    <a href="reserva.html" class="btn btn-secondary">Mas información</a>
+                </div>
+            </div>
+
+        </div>
+    }
+    </div>
+
+        <br />
+        @*CÓDIGO PARA LA TABLA DE DATOS*@
+        <table class="table table-bordered table-dark  table-hover  table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Codigo
+                    </th>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Ciudad
+                    </th>
+                    <th>
+                        Barrio
+                    </th>
+                    <th>
+                        Estrellas
+                    </th>
+                    <th>
+                        CantPersonas
+                    </th>
+                    <th>
+                        TV
+                    </th>
+                    <th>
+                        PrecioDia
+                    </th>
+                    <th>
+                        Habitaciones
+                    </th>
+                    <th>
+                        Baños
+                    </th>
+                    <th>
+                        PrecioPorPersona
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+
+                </tr>
+            </thead>
+            @foreach (var item in Model.Resultado)
+            {
+                <tbody>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.codigo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ciudad)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.barrio)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.estrellas)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.cantPersonas)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tv)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.precioDia)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.habitaciones)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.baños)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.precioPorPersona)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tipo)
+                        </td>
+
+                    </tr>
+                </tbody>
+            }
+        </table>
+
+        @*CÓDIGO PARA EL PAGINADOR DE REGISTROS*@
+        <div class="paginador">
+
+
+            @if (Model.Resultado.Count() > 0)
+            {
+                <span>
+                    <strong>@Model.TotalRegistros</strong> registros encontrados
+                </span>
+                <span>&nbsp;|&nbsp;</span>
+                <span>
+                    Página <strong>@(Model.PaginaActual)</strong> de
+                    <strong>@Model.TotalPaginas</strong>
+                </span>
+                <span>&nbsp;|&nbsp;</span>
+            }
+            else
+            {
+                <span>No hay resultados para esta búsqueda</span>
+                <span>&nbsp;|&nbsp;</span>
+            }
+
+            @if (Model.PaginaActual > 1)
+            {
+                @Html.ActionLink("<<", "Index", new { pagina = 1, buscar = Model.BusquedaActual },
+                                    new { @class = "btn btn-sm btn-default" })
+                <span></span>
+                @Html.ActionLink("Anterior", "Index", new
+                {
+                    pagina = Model.PaginaActual - 1,
+                    buscar = Model.BusquedaActual
+                }, new { @class = "btn btn-sm btn-default" })
+            }
+            else
+            {
+                @Html.ActionLink("<<", "Index", new
+                {
+                    pagina = 1,
+                    buscar = Model.BusquedaActual
+                }, new { @class = "btn btn-sm btn-default disabled" })
+
+                <span></span>
+                @Html.ActionLink("Anterior", "Index", new
+                {
+                    pagina = 1,
+                    buscar = Model.BusquedaActual
+                }, new { @class = "btn btn-sm btn-default disabled" })
+            }
+
+            <span></span>
+
+            @if (Model.PaginaActual < Model.TotalPaginas)
+            {
+                @Html.ActionLink("Siguiente", "Index", new
+                {
+                    pagina = Model.PaginaActual + 1,
+                    buscar = Model.BusquedaActual
+                }, new { @class = "btn btn-sm btn-default" })
+
+                <span></span>
+                @Html.ActionLink(">>", "Index", new
+                {
+                    pagina = Model.TotalPaginas,
+                    buscar = Model.BusquedaActual
+                }, new { @class = "btn btn-sm btn-default" })
+            }
+            else
+            {
+                @Html.ActionLink("Siguiente", "Index", new
+                {
+                    pagina = Model.TotalPaginas - 1,
+                    buscar = Model.BusquedaActual
+                }, new { @class = "btn btn-sm btn-default disabled" })
+
+                <span></span>
+                @Html.ActionLink(">>", "Index", new
+                {
+                    pagina = Model.TotalPaginas,
+                    buscar = Model.BusquedaActual
+                }, new { @class = "btn btn-sm btn-default disabled" })
+            }
+
+        </div>
+        <footer class="footer-index">
+            <div class="footer">
+                <div class="prof">
+                    <p><b>Materia:</b> Plataformas de Desarrollo</p>
+                    <p><b>Profesor:</b> Walter Gomez</p>
+                    <p><b>Instancia:</b> Final</p>
+                </div>
+                <div class="alum">
+                    <p><b>Alumnos:</b> Basualdo, Lucas</p>
+                    <p>Ochoa, Leonel</p>
+                    <p>Labudia, Luciano</p>
+                    <p>Gimenez, Oscar</p>
+                </div>
+            </div>
+        </footer>
+
+
+
+        <!-- scripts-->
+        <script src="~/js/usuario.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <!-- Fin de scripts -->
+
+</body>

@@ -3,12 +3,25 @@
 @{
     ViewData["Title"] = "Create";
 }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=0.0" />
+<meta name="viewport" content="width=device-width" />
 
+<title>@ViewData["Title"]</title>
+@*Capturamos el titulo definido en el vista que corresponda (en este caso sera de la vista Index - LISTAR USUARIO)
+    @@2 Inicio: Importamos la librería js jQuery y el css bootstrap*@
+
+<link href="/lib/bootstrap-4.3.1/dist/css/bootstrap.css" rel="stylesheet" />
+
+<script src="/lib/jquery/dist/jquery.min.js"></script>
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/site.css" />
 <h1>Create</h1>
 
 <h4>Usuario</h4>
 <hr />
-<div class="row">
+<div class="row justify-content-center">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>

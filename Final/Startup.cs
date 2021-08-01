@@ -25,6 +25,8 @@ namespace Final
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSession();
+
             services.AddControllersWithViews();
 
             services.AddDbContext<FinalContextGlobal>(options =>
@@ -49,13 +51,27 @@ namespace Final
 
             app.UseRouting();
 
+            app.UseSession();
+
             app.UseAuthorization();
+
+            //app.UseMvc(router =>
+
+            //{
+            //    router.MapRoute(
+
+            //    name: "default",
+
+            //    template: "{controller=Login}/{action=Login}/{id?}");
+
+            //});
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Login}/{action=Login}/{id?}");
+        //pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
