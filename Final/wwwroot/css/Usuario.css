@@ -1,5 +1,18 @@
 ﻿body {
-    background-image: linear-gradient(120deg, #5a5b5b, #6f6f6f, #848484, #9a9a9a, #b0b0b0);
+    background-image: linear-gradient(to right, #74ebd5 0%, #9face6 100%);
+}
+.cards{
+    display: flex;
+    flex-direction:row;
+}
+.busqueda{
+    top : 15%;
+    position:absolute;
+    background-color: rgba(37,213,185,0.8);
+}
+.card{
+    margin-right : 3px !important;
+    padding : 0px !important;
 
 }
 /*.container{
@@ -32,7 +45,9 @@
 
 
 /* Cuadro de busqueda index */
-
+.spaceButton {
+    margin-right: 1em;
+}
 .border {
     border: silver, solid, 1px;
     border-radius: 8px;
@@ -172,7 +187,7 @@
     margin-top: 20px;
     width: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
 }
 

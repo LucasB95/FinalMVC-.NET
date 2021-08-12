@@ -1,0 +1,232 @@
+﻿@model Paginacion<Alojamiento>
+@using Microsoft.AspNetCore.Http
+@{
+    ViewBag.Title = "Alojamientos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var vUser = Context.Session.GetInt32("_User");<!--Capturar la sesión en la variable vUser-->
+}
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/Usuario.css">
+    <link rel="stylesheet" href="~/js/usuario.js">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Vista de Usuario</title>
+</head>
+
+<body>
+
+    <header>
+        <!-- Inicio del navegador -->
+        <nav class="navbar sticky-top navbar-light navbar-expand-lg" style="background-color: #00FCD4;">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Viajá con SoftNova</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarText">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Buscador" asp-action="Hotel">Hotel</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Buscador" asp-action="Cabaña">Cabaña</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Buscador" asp-action="Index">Busqueda</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Reserva">Reserva</a>
+                        </li>
+                    </ul>
+                    <!-- Inicio de menu desplegable -->
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                            </svg>
+                            @*Parametro por mvc*@
+                            <p>@vUser</p>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                            <li><a class="dropdown-item" href="#">Cambiar contraseña</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                @using (Html.BeginForm("LogOff", "Login", FormMethod.Post, new { id = "logoutForm", @class = "form-css" }))
+
+                                {
+
+                                    <a href="javascript:document.getElementById('logoutForm').submit()"><i class="dropdown-item"></i> Cerrar Sesión</a>
+
+                                }
+                                @*<a class="dropdown-item" href="#">Cerrar sesión</a>*@
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Fin de menu desplegable -->
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+
+    <!-- Inicio caja de búsqueda -->
+
+    
+
+    <div class="container">
+        <h1>Resultados de Hoteles</h1>
+        <hr>
+        <!-- Meter un for aca para traer todos los resultados -->
+
+        <div class="row">
+            @foreach (var item in Model.Resultado)
+            {
+                if (item.tipo == "Hotel")
+                {
+
+                    <div class="card" style="width: 18rem;  margin-right : 10px !important; border-color :#00FCD4; padding:5px">
+                        <img src="https://media-cdn.tripadvisor.com/media/photo-s/11/f3/53/f7/we-hotel-aeropuerto.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">@Html.DisplayFor(modelItem => item.nombre)</h5>
+                            <p class="card-text">Ciudad : @Html.DisplayFor(modelItem => item.ciudad)</p>
+                            <p class="card-text">Barrio : @Html.DisplayFor(modelItem => item.barrio)</p>
+                            <p class="card-text">Estrellas :  @Html.DisplayFor(modelItem => item.estrellas)</p>
+                            <p class="card-text">Cantidad Personas : @Html.DisplayFor(modelItem => item.cantPersonas)</p>
+                            <p class="card-text">TV : @Html.DisplayFor(modelItem => item.tv)</p>
+                            <p class="card-text">Precio Dia : @Html.DisplayFor(modelItem => item.precioDia)</p>
+                            <p class="card-text">Habitaciones :@Html.DisplayFor(modelItem => item.habitaciones)</p>
+                            <p class="card-text">Baños :@Html.DisplayFor(modelItem => item.baños)</p>
+                            <p class="card-text">Precio por Persona :@Html.DisplayFor(modelItem => item.precioPorPersona)</p>
+                            <p class="card-text">Tipo :@Html.DisplayFor(modelItem => item.tipo)</p>
+                            <a onclick="reserva()" href="" class="btn btn-primary">¡Reserva ahora!</a>
+                            <a href="reserva.html" class="btn btn-secondary">Mas información</a>
+                        </div>
+                    </div>
+                }
+
+
+            }
+        </div>
+
+    </div>
+
+
+
+    <br />
+    @*CÓDIGO PARA LA TABLA DE DATOS*@
+   
+
+    @*CÓDIGO PARA EL PAGINADOR DE REGISTROS*@
+    <div class="paginador">
+
+
+        @if (Model.Resultado.Count() > 0)
+        {
+            <span>
+                <strong>@Model.TotalRegistros</strong> registros encontrados
+            </span>
+            <span>&nbsp;|&nbsp;</span>
+            <span>
+                Página <strong>@(Model.PaginaActual)</strong> de
+                <strong>@Model.TotalPaginas</strong>
+            </span>
+            <span>&nbsp;|&nbsp;</span>
+        }
+        else
+        {
+            <span>No hay resultados para esta búsqueda</span>
+            <span>&nbsp;|&nbsp;</span>
+        }
+
+        @if (Model.PaginaActual > 1)
+        {
+            @Html.ActionLink("<<", "Index", new { pagina = 1, buscar = Model.BusquedaActual },
+                                new { @class = "btn btn-sm btn-default" })
+            <span></span>
+            @Html.ActionLink("Anterior", "Index", new
+            {
+                pagina = Model.PaginaActual - 1,
+                buscar = Model.BusquedaActual
+            }, new { @class = "btn btn-sm btn-default" })
+        }
+        else
+        {
+            @Html.ActionLink("<<", "Index", new
+            {
+                pagina = 1,
+                buscar = Model.BusquedaActual
+            }, new { @class = "btn btn-sm btn-default disabled" })
+
+            <span></span>
+            @Html.ActionLink("Anterior", "Index", new
+            {
+                pagina = 1,
+                buscar = Model.BusquedaActual
+            }, new { @class = "btn btn-sm btn-default disabled" })
+        }
+
+        <span></span>
+
+        @if (Model.PaginaActual < Model.TotalPaginas)
+        {
+            @Html.ActionLink("Siguiente", "Index", new
+            {
+                pagina = Model.PaginaActual + 1,
+                buscar = Model.BusquedaActual
+            }, new { @class = "btn btn-sm btn-default" })
+
+            <span></span>
+            @Html.ActionLink(">>", "Index", new
+            {
+                pagina = Model.TotalPaginas,
+                buscar = Model.BusquedaActual
+            }, new { @class = "btn btn-sm btn-default" })
+        }
+        else
+        {
+            @Html.ActionLink("Siguiente", "Index", new
+            {
+                pagina = Model.TotalPaginas - 1,
+                buscar = Model.BusquedaActual
+            }, new { @class = "btn btn-sm btn-default disabled" })
+
+            <span></span>
+            @Html.ActionLink(">>", "Index", new
+            {
+                pagina = Model.TotalPaginas,
+                buscar = Model.BusquedaActual
+            }, new { @class = "btn btn-sm btn-default disabled" })
+        }
+
+    </div>
+    <footer class="footer-index">
+        <div class="footer">
+            <div class="prof">
+                <p><b>Materia:</b> Plataformas de Desarrollo</p>
+                <p><b>Profesor:</b> Walter Gomez</p>
+                <p><b>Instancia:</b> Final</p>
+            </div>
+            <div class="alum">
+                <p><b>Alumnos:</b> Basualdo, Lucas</p>
+                <p>Ochoa, Leonel</p>
+                <p>Labudia, Luciano</p>
+                <p>Gimenez, Oscar</p>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <!-- scripts-->
+    <script src="~/js/usuario.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <!-- Fin de scripts -->
+
+</body>

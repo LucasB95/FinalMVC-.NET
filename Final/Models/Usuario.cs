@@ -17,18 +17,11 @@ namespace Final.Models
         public string Nombre { get; set; }
         public string Mail { get; set; }
         [Required]
-        [ContrasenaValidate(ErrorMessage = "Contraseña no valida")]
+        //[ContrasenaValidate(ErrorMessage = "Contraseña no valida")]
         public string Password { get; set; }
         public bool esAdmin { get; set; }
         [Display(Name = "Bloqueado")]
         public bool bloqueado { get; set; }
-
-        //public int intentos { get; set; }
-
-        //public decimal nivelSeg { get; set; }
-
-        //public DateTime? fechaReg { get; set; }
-
 
         public Usuario(int DNI, string nom, string mail, string pass)
         {

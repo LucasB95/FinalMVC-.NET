@@ -30,13 +30,16 @@
                 <div class="collapse navbar-collapse" id="navbarText">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="hoteles.html">Hoteles</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Buscador" asp-action="Hotel">Hotel</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="cabañas.html">Cabañas</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Buscador" asp-action="Cabaña">Cabaña</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Buscador" asp-action="Index">Busqueda</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Reserva">Reserva</a>
                         </li>
                     </ul>
                     <!-- Inicio de menu desplegable -->
@@ -129,7 +132,16 @@
                                             <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
                                         </svg>
                                     </span>
-                                    <input type="date" class="form-control" placeholder="Fecha de salida" aria-label="Salida" aria-describedby="addon-wrapping">
+
+                                    @Html.TextBox("Fdesde", null, new
+                               {
+                                   placeholder = "Fecha de salida",
+                                   @class = "form-control",
+                                   type = "date"
+
+                                               })
+
+                                    @*<input type="date" class="form-control" placeholder="Fecha de salida" aria-label="Salida" aria-describedby="addon-wrapping">*@
                                 </div>
                             </td>
                             <td>
@@ -140,7 +152,13 @@
                                             <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
                                         </svg>
                                     </span>
-                                    <input type="date" class="form-control" placeholder="Fecha de llegada" aria-label="Llegada" aria-describedby="addon-wrapping">
+                                    @Html.TextBox("Fhasta", null, new
+                                               {
+                                                   placeholder = "Fecha de llegada",
+                                                   @class = "form-control",
+                                                   type ="date"
+                                               })
+                                    @*<input type="date" class="form-control" placeholder="Fecha de llegada" aria-label="Llegada" aria-describedby="addon-wrapping">*@
                                 </div>
                             </td>
                         </tr>
@@ -154,13 +172,11 @@
                         <p>Cantidad de estrellas</p>
                     </div>
                     <div class="select-stars">
-                        <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                            <option value="1">★</option>
-                            <option value="2">★★</option>
-                            <option value="3">★★★</option>
-                            <option value="4">★★★★</option>
-                            <option value="5">★★★★★</option>
-                        </select>
+                        @Html.TextBox("estrellas", null, new
+                        {
+                            placeholder = "Ingrese cantidad de Estrellas",
+                            @class = "form-control"
+                        })
                     </div>
                 </div>
 
@@ -170,14 +186,13 @@
                     <div class="text-stars">
                         <p>Cantidad de personas</p>
                     </div>
-                    <div class="select-stars">
-                        <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">+5</option>
-                        </select>
+                    <div class="input-group flex-nowrap form-group">
+                        @Html.TextBox("cantidad", null, new
+                        {
+                            placeholder = "Cantidad de Personas",
+                            @class = "form-control"
+                        })
+                        @*<input type="text" class="form-control" placeholder="Destino" aria-label="Destino" aria-describedby="addon-wrapping">*@
                     </div>
                 </div>
                 <!-- Fin personas -->
@@ -194,12 +209,14 @@
                     </div>
                 </div>
 
-                <div class="price">
+                <div class="price">                  
+                   <div class="range">
                     <p>Hasta $</p>
-                    <div class="range">
-                        <small>$0</small>
-                        <input type="range" class="form-range" min="100" max="50000" step="1" id="customRange3">
-                        <small>$100.000</small>
+                        @Html.TextBox("precio", null, new
+                       {
+                           placeholder = "Precio",
+                           @class = "form-control"
+                       })
                     </div>
                 </div>
 
@@ -212,244 +229,245 @@
     </div>
 
 
-    @*CÓDIGO PARA EL FILTRO DE BÚSQUEDA*@
-    @*<div class="text-right form-inline">
-            <form method="get" action=@Url.Action("Index", "Buscador" )>
-                <div class="form-group">
-                    @Html.TextBox("buscar", null, new
-                    {
-                        placeholder = "texto de búsqueda",
-                        @class = "form-control"
-                    })
-                </div>
-                <button class="btn btn-primary" type="submit">Buscar</button>
-            </form>
-        </div>*@
 
-<div class="container transparent">
-    <h1>Resultados de tu búsqueda</h1>
-    <hr>
-    <!-- Meter un for aca para traer todos los resultados -->
-    @foreach (var item in Model.Resultado)
-    {
-        <div cards>
-            <div class="card" style="width: 18rem;">
-                <img src="https://media-cdn.tripadvisor.com/media/photo-s/11/f3/53/f7/we-hotel-aeropuerto.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.nombre)</h5>
-                    <p class="card-text">Ciudad : @Html.DisplayFor(modelItem => item.ciudad)</p>
-                    <p class="card-text">Barrio : @Html.DisplayFor(modelItem => item.barrio)</p>
-                    <p class="card-text">Estrellas :  @Html.DisplayFor(modelItem => item.estrellas)</p>
-                    <p class="card-text">Cantidad Personas : @Html.DisplayFor(modelItem => item.cantPersonas)</p>
-                    <p class="card-text">TV : @Html.DisplayFor(modelItem => item.tv)</p>
-                    <p class="card-text">Precio Dia : @Html.DisplayFor(modelItem => item.precioDia)</p>
-                    <p class="card-text">Habitaciones :@Html.DisplayFor(modelItem => item.habitaciones)</p>
-                    <p class="card-text">Baños :@Html.DisplayFor(modelItem => item.baños)</p>
-                    <p class="card-text">Precio por Persona :@Html.DisplayFor(modelItem => item.precioPorPersona)</p>
-                    <p class="card-text">Tipo :@Html.DisplayFor(modelItem => item.tipo)</p>
-                    <a onclick="reserva()" href="" class="btn btn-primary">¡Reserva ahora!</a>
-                    <a href="reserva.html" class="btn btn-secondary">Mas información</a>
-                </div>
-            </div>
+    <div class="container">
+        <h1>Resultados de tu búsqueda por Destino</h1>
+        <hr>
+        <!-- Meter un for aca para traer todos los resultados -->
 
+        <div class="row">
+            @foreach (var item in Model.Resultado)
+            {          
+                <div class="card" style="width: 18rem; margin-right : 10px !important; border-color :#00FCD4; padding:5px">
+                    <img src="https://media-cdn.tripadvisor.com/media/photo-s/11/f3/53/f7/we-hotel-aeropuerto.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+
+                        <form method="post">
+
+
+                            <h5 class="card-title">@Html.DisplayFor(modelItem => item.nombre)</h5>
+                            <p class="card-text">Codigo : @Html.DisplayFor(modelItem => item.codigo)</p>
+                            <p class="card-text">Ciudad : @Html.DisplayFor(modelItem => item.ciudad)</p>
+                            <p class="card-text">Barrio : @Html.DisplayFor(modelItem => item.barrio)</p>
+                            <p class="card-text">Estrellas :  @Html.DisplayFor(modelItem => item.estrellas)</p>
+                            <p class="card-text">Cantidad Personas : @Html.DisplayFor(modelItem => item.cantPersonas)</p>
+                            <p class="card-text">TV : @Html.DisplayFor(modelItem => item.tv)</p>
+                            <p class="card-text">Precio Dia : @Html.DisplayFor(modelItem => item.precioDia)</p>
+                            <p class="card-text">Habitaciones :@Html.DisplayFor(modelItem => item.habitaciones)</p>
+                            <p class="card-text">Baños :@Html.DisplayFor(modelItem => item.baños)</p>
+                            <p class="card-text">Precio por Persona :@Html.DisplayFor(modelItem => item.precioPorPersona)</p>
+                            <p class="card-text">Tipo :@Html.DisplayFor(modelItem => item.tipo)</p>
+
+
+                            <a onclick="reserva()" href="" class="btn btn-primary">¡Reserva ahora!</a>
+                            <a href="reserva.html" class="btn btn-secondary">Mas información</a>
+
+                        </form>
+
+
+                    </div>
+                </div>
+            }
         </div>
-    }
+
     </div>
 
-        <br />
-        @*CÓDIGO PARA LA TABLA DE DATOS*@
-        <table class="table table-bordered table-dark  table-hover  table-striped">
-            <thead>
+
+
+    <br />
+    @*CÓDIGO PARA LA TABLA DE DATOS*@
+    <table class="table table-bordered table-dark  table-hover  table-striped">
+        <thead>
+            <tr>
+                <th>
+                    Codigo
+                </th>
+                <th>
+                    Nombre
+                </th>
+                <th>
+                    Ciudad
+                </th>
+                <th>
+                    Barrio
+                </th>
+                <th>
+                    Estrellas
+                </th>
+                <th>
+                    CantPersonas
+                </th>
+                <th>
+                    TV
+                </th>
+                <th>
+                    PrecioDia
+                </th>
+                <th>
+                    Habitaciones
+                </th>
+                <th>
+                    Baños
+                </th>
+                <th>
+                    PrecioPorPersona
+                </th>
+                <th>
+                    Tipo
+                </th>
+
+            </tr>
+        </thead>
+        @foreach (var item in Model.Resultado)
+        {
+            <tbody>
                 <tr>
-                    <th>
-                        Codigo
-                    </th>
-                    <th>
-                        Nombre
-                    </th>
-                    <th>
-                        Ciudad
-                    </th>
-                    <th>
-                        Barrio
-                    </th>
-                    <th>
-                        Estrellas
-                    </th>
-                    <th>
-                        CantPersonas
-                    </th>
-                    <th>
-                        TV
-                    </th>
-                    <th>
-                        PrecioDia
-                    </th>
-                    <th>
-                        Habitaciones
-                    </th>
-                    <th>
-                        Baños
-                    </th>
-                    <th>
-                        PrecioPorPersona
-                    </th>
-                    <th>
-                        Tipo
-                    </th>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.codigo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ciudad)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.barrio)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.estrellas)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.cantPersonas)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.tv)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.precioDia)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.habitaciones)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.baños)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.precioPorPersona)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.tipo)
+                    </td>
 
                 </tr>
-            </thead>
-            @foreach (var item in Model.Resultado)
+            </tbody>
+        }
+    </table>
+
+    @*CÓDIGO PARA EL PAGINADOR DE REGISTROS*@
+    <div class="paginador">
+
+
+        @if (Model.Resultado.Count() > 0)
+        {
+            <span>
+                <strong>@Model.TotalRegistros</strong> registros encontrados
+            </span>
+            <span>&nbsp;|&nbsp;</span>
+            <span>
+                Página <strong>@(Model.PaginaActual)</strong> de
+                <strong>@Model.TotalPaginas</strong>
+            </span>
+            <span>&nbsp;|&nbsp;</span>
+        }
+        else
+        {
+            <span>No hay resultados para esta búsqueda</span>
+            <span>&nbsp;|&nbsp;</span>
+        }
+
+        @if (Model.PaginaActual > 1)
+        {
+            @Html.ActionLink("<<", "Index", new { pagina = 1, buscar = Model.BusquedaActual },
+                                new { @class = "btn btn-sm btn-default" })
+            <span></span>
+            @Html.ActionLink("Anterior", "Index", new
             {
-                <tbody>
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.codigo)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.nombre)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ciudad)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.barrio)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.estrellas)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.cantPersonas)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.tv)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.precioDia)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.habitaciones)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.baños)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.precioPorPersona)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.tipo)
-                        </td>
-
-                    </tr>
-                </tbody>
-            }
-        </table>
-
-        @*CÓDIGO PARA EL PAGINADOR DE REGISTROS*@
-        <div class="paginador">
-
-
-            @if (Model.Resultado.Count() > 0)
+                pagina = Model.PaginaActual - 1,
+                buscar = Model.BusquedaActual
+            }, new { @class = "btn btn-sm btn-default" })
+        }
+        else
+        {
+            @Html.ActionLink("<<", "Index", new
             {
-                <span>
-                    <strong>@Model.TotalRegistros</strong> registros encontrados
-                </span>
-                <span>&nbsp;|&nbsp;</span>
-                <span>
-                    Página <strong>@(Model.PaginaActual)</strong> de
-                    <strong>@Model.TotalPaginas</strong>
-                </span>
-                <span>&nbsp;|&nbsp;</span>
-            }
-            else
-            {
-                <span>No hay resultados para esta búsqueda</span>
-                <span>&nbsp;|&nbsp;</span>
-            }
-
-            @if (Model.PaginaActual > 1)
-            {
-                @Html.ActionLink("<<", "Index", new { pagina = 1, buscar = Model.BusquedaActual },
-                                    new { @class = "btn btn-sm btn-default" })
-                <span></span>
-                @Html.ActionLink("Anterior", "Index", new
-                {
-                    pagina = Model.PaginaActual - 1,
-                    buscar = Model.BusquedaActual
-                }, new { @class = "btn btn-sm btn-default" })
-            }
-            else
-            {
-                @Html.ActionLink("<<", "Index", new
-                {
-                    pagina = 1,
-                    buscar = Model.BusquedaActual
-                }, new { @class = "btn btn-sm btn-default disabled" })
-
-                <span></span>
-                @Html.ActionLink("Anterior", "Index", new
-                {
-                    pagina = 1,
-                    buscar = Model.BusquedaActual
-                }, new { @class = "btn btn-sm btn-default disabled" })
-            }
+                pagina = 1,
+                buscar = Model.BusquedaActual
+            }, new { @class = "btn btn-sm btn-default disabled" })
 
             <span></span>
-
-            @if (Model.PaginaActual < Model.TotalPaginas)
+            @Html.ActionLink("Anterior", "Index", new
             {
-                @Html.ActionLink("Siguiente", "Index", new
-                {
-                    pagina = Model.PaginaActual + 1,
-                    buscar = Model.BusquedaActual
-                }, new { @class = "btn btn-sm btn-default" })
+                pagina = 1,
+                buscar = Model.BusquedaActual
+            }, new { @class = "btn btn-sm btn-default disabled" })
+        }
 
-                <span></span>
-                @Html.ActionLink(">>", "Index", new
-                {
-                    pagina = Model.TotalPaginas,
-                    buscar = Model.BusquedaActual
-                }, new { @class = "btn btn-sm btn-default" })
-            }
-            else
+        <span></span>
+
+        @if (Model.PaginaActual < Model.TotalPaginas)
+        {
+            @Html.ActionLink("Siguiente", "Index", new
             {
-                @Html.ActionLink("Siguiente", "Index", new
-                {
-                    pagina = Model.TotalPaginas - 1,
-                    buscar = Model.BusquedaActual
-                }, new { @class = "btn btn-sm btn-default disabled" })
+                pagina = Model.PaginaActual + 1,
+                buscar = Model.BusquedaActual
+            }, new { @class = "btn btn-sm btn-default" })
 
-                <span></span>
-                @Html.ActionLink(">>", "Index", new
-                {
-                    pagina = Model.TotalPaginas,
-                    buscar = Model.BusquedaActual
-                }, new { @class = "btn btn-sm btn-default disabled" })
-            }
+            <span></span>
+            @Html.ActionLink(">>", "Index", new
+            {
+                pagina = Model.TotalPaginas,
+                buscar = Model.BusquedaActual
+            }, new { @class = "btn btn-sm btn-default" })
+        }
+        else
+        {
+            @Html.ActionLink("Siguiente", "Index", new
+            {
+                pagina = Model.TotalPaginas - 1,
+                buscar = Model.BusquedaActual
+            }, new { @class = "btn btn-sm btn-default disabled" })
 
-        </div>
-        <footer class="footer-index">
-            <div class="footer">
-                <div class="prof">
-                    <p><b>Materia:</b> Plataformas de Desarrollo</p>
-                    <p><b>Profesor:</b> Walter Gomez</p>
-                    <p><b>Instancia:</b> Final</p>
-                </div>
-                <div class="alum">
-                    <p><b>Alumnos:</b> Basualdo, Lucas</p>
-                    <p>Ochoa, Leonel</p>
-                    <p>Labudia, Luciano</p>
-                    <p>Gimenez, Oscar</p>
-                </div>
+            <span></span>
+            @Html.ActionLink(">>", "Index", new
+            {
+                pagina = Model.TotalPaginas,
+                buscar = Model.BusquedaActual
+            }, new { @class = "btn btn-sm btn-default disabled" })
+        }
+
+    </div>
+    <footer class="footer-index">
+        <div class="footer">
+            <div class="prof">
+                <p><b>Materia:</b> Plataformas de Desarrollo</p>
+                <p><b>Profesor:</b> Walter Gomez</p>
+                <p><b>Instancia:</b> Final</p>
             </div>
-        </footer>
+            <div class="alum">
+                <p><b>Alumnos:</b> Basualdo, Lucas</p>
+                <p>Ochoa, Leonel</p>
+                <p>Labudia, Luciano</p>
+                <p>Gimenez, Oscar</p>
+            </div>
+        </div>
+    </footer>
 
 
 
-        <!-- scripts-->
-        <script src="~/js/usuario.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-        <!-- Fin de scripts -->
+    <!-- scripts-->
+    <script src="~/js/usuario.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <!-- Fin de scripts -->
 
 </body>

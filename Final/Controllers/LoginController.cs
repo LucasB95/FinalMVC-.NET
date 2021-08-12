@@ -13,19 +13,19 @@ using System.Threading.Tasks;
 
 namespace Final.Controllers
 {
-
-
     public class LoginController : Controller
     {
 
         private DbSet<Usuario> misUsuarioos;
         private FinalContextGlobal contextGlobal;
+        private readonly FinalContextGlobal _contextReser;
 
         public const string SessionUser = "_User";
         public IConfiguration Configuration { get; }
-        public LoginController(IConfiguration configuration)
+        public LoginController(IConfiguration configuration, FinalContextGlobal context)
         {
             Configuration = configuration;
+            _contextReser = context;
             inicializarAtributos();
         }
 
@@ -130,5 +130,14 @@ namespace Final.Controllers
             HttpContext.Session.Clear();
             return RedirectToAction("Login", "Login");
         }
+
+
+        // GET: Reservas
+        public async Task<IActionResult> Reserva()
+        {
+            return View(await _contextReser.Reserva.ToListAsync());
+        }
+
+
     }
 }

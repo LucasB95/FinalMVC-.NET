@@ -64,6 +64,17 @@ namespace Final.Models
             return View(usuario);
         }
 
+        public async Task<IActionResult> CreateUsu([Bind("num_usr,DNI,Nombre,Mail,Password")] Usuario usuario)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(usuario);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Login", "Login");
+            }
+            return View(usuario);
+        }
+
         // GET: Usuarios/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {

@@ -15,5 +15,7 @@ namespace Final.Models
         public int TotalPaginas { get; set; }
         public string BusquedaActual { get; set; }
         public IEnumerable<T> Resultado { get; set; }
+
+        
     }
 }
